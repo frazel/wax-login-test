@@ -2,28 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>WAX Login Test</title>
   <script src="https://cdn.jsdelivr.net/npm/@waxio/waxjs@1.0.3/dist/waxjs.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #1e1e1e;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      background-color: #ffc107;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ffca28;
+    }
+    #user-info {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+  </style>
 </head>
-<body style="font-family: sans-serif; text-align: center; padding-top: 100px; background-color: #111; color: #fff;">
-  <h1>🔐 WAX Login Test</h1>
-  <button id="login-btn" style="font-size: 1.2rem; padding: 10px 20px;">Login with WAX</button>
-  <p id="user-info"></p>
+<body>
+  <h1>🔐 WAX Login Demo</h1>
+  <button id="login-btn">Login with WAX</button>
+  <div id="user-info">Not logged in</div>
 
   <script>
-    const wax = new waxjs.WaxJS({ rpcEndpoint: 'https://wax.greymass.com' });
+    console.log("WaxJS loading...");
 
-    document.getElementById("login-btn").onclick = async () => {
+    const wax = new waxjs.WaxJS({
+      rpcEndpoint: 'https://wax.greymass.com'
+    });
+
+    document.getElementById("login-btn").addEventListener("click", async () => {
+      console.log("Login button clicked.");
       try {
         const userAccount = await wax.login();
+        console.log("WAX login successful:", userAccount);
         document.getElementById("user-info").innerText = `✅ Logged in as: ${userAccount}`;
-        console.log("Logged in as:", userAccount);
       } catch (e) {
-        console.error("Login error:", e);
+        console.error("WAX login error:", e);
         alert("Login failed: " + e.message);
       }
-    };
+    });
   </script>
 </body>
 </html>
