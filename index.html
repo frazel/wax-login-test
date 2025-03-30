@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WAX Login Test</title>
+  <script src="https://cdn.jsdelivr.net/npm/@waxio/waxjs@1.0.3/dist/waxjs.min.js"></script>
+</head>
+<body style="font-family: sans-serif; text-align: center; padding-top: 100px; background-color: #111; color: #fff;">
+  <h1>🔐 WAX Login Test</h1>
+  <button id="login-btn" style="font-size: 1.2rem; padding: 10px 20px;">Login with WAX</button>
+  <p id="user-info"></p>
+
+  <script>
+    const wax = new waxjs.WaxJS({ rpcEndpoint: 'https://wax.greymass.com' });
+
+    document.getElementById("login-btn").onclick = async () => {
+      try {
+        const userAccount = await wax.login();
+        document.getElementById("user-info").innerText = `✅ Logged in as: ${userAccount}`;
+        console.log("Logged in as:", userAccount);
+      } catch (e) {
+        console.error("Login error:", e);
+        alert("Login failed: " + e.message);
+      }
+    };
+  </script>
+</body>
+</html>
